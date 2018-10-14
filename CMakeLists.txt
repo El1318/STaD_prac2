@@ -1,11 +1,9 @@
-# The name of our project is "HELLO". CMakeLists files in this project can
-# refer to the root source directory of the project as ${HELLO_SOURCE_DIR} and
-# to the root binary directory of the project as ${HELLO_BINARY_DIR}.
 cmake_minimum_required (VERSION 2.6)
 project (TEST)
 
+include_directories (${TEST_SOURCE_DIR}) #$
 include_directories (${TEST_SOURCE_DIR}/eigen)
-link_directories (${TEST_SOURCE_DIR}/eigen)
+include_directories (${TEST_SOURCE_DIR}/tests) #$
 
 include(ExternalProject)
 ExternalProject_Add(
@@ -14,22 +12,56 @@ ExternalProject_Add(
 	INSTALL_COMMAND echo "Skipping install"
 )
 
+# search for Boost version 1.34
+# link against dynamic libraries
+add_definitions(-DBOOST_ALL_DYN_LINK)
+
+find_package( Boost COMPONENTS unit_test_framework)
+link_directories ( ${Boost_LIBRARY_DIRS} )
+include_directories ( ${Boost_INCLUDE_DIRS} )
+message(${Boost_LIBRARIES})
+
 add_executable (
+    test1
+    ${TEST_SOURCE_DIR}/tests/test1.cpp
+)
+
+target_link_libraries(
 	test1
-	${TEST_SOURCE_DIR}/test1.cpp
+	${Boost_LIBRARIES}
 )
+
+
 add_executable (
+    test2
+    ${TEST_SOURCE_DIR}/tests/test2.cpp
+    )
+
+target_link_libraries(
 	test2
-	${TEST_SOURCE_DIR}/test2.cpp
+	${Boost_LIBRARIES}
 )
+
 add_executable (
+    test3
+    ${TEST_SOURCE_DIR}/tests/test3.cpp
+)
+
+target_link_libraries(
 	test3
-	${TEST_SOURCE_DIR}/test3.cpp
-)
+	${Boost_LIBRARIES})
+
 add_executable (
-	test4
-	${TEST_SOURCE_DIR}/test4.cpp
+    test4
+    ${TEST_SOURCE_DIR}/tests/test4.cpp
 )
+
+target_link_libraries(
+	test4
+	${Boost_LIBRARIES}
+)
+
+
 
 enable_testing()
 
