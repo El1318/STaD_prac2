@@ -16,14 +16,10 @@ ExternalProject_Add(
 # link against dynamic libraries
 add_definitions(-DBOOST_ALL_DYN_LINK)
 
-find_package( Boost COMPONENTS unit_test_framework system timer)
+find_package( Boost COMPONENTS unit_test_framework system timer REQUIRED)
 link_directories ( ${Boost_LIBRARY_DIRS} )
 include_directories ( ${Boost_INCLUDE_DIRS} )
 message(${Boost_LIBRARIES})
-
-
-SET(CMAKE_CXX_FLAGS  "-O3")
-
 
 add_executable (
     test1
@@ -72,6 +68,16 @@ add_executable (
 
 target_link_libraries(
 	benchmark
+	${Boost_LIBRARIES}
+)
+
+add_executable (
+    ublas_benchmark
+    ${TEST_SOURCE_DIR}/tests/ublas_benchmark.cpp
+)
+
+target_link_libraries(
+	ublas_benchmark
 	${Boost_LIBRARIES}
 )
 
