@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	{
 		mul = rand_mul(i);
 		cpu_times times = timer.elapsed();
-		float t_new = times.wall/1e9;
+		float t_new = times.user/1e9;
 		std::cout <<  i << 'x' << i << ": " <<  t_new - t_prev << "sec" << std::endl;
 		t_prev = t_new;
 	}
