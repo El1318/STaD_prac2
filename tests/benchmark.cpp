@@ -18,13 +18,16 @@ MatrixXf rand_mul(int size)
 int main(int argc, char *argv[])
 {
 	cpu_timer timer;
+	float t_prev = 0.;
 	MatrixXf mul;
 
 	for(int i = 0; i < atoi(argv[1]); i += atoi(argv[2]))
 	{
 		mul = rand_mul(i);
 		cpu_times times = timer.elapsed();
-		std::cout <<  i << 'x' << i << ": " <<  times.wall/1e9 << "sec" << std::endl;
+		float t_new = times.wall/1e9;
+		std::cout <<  i << 'x' << i << ": " <<  t_new - t_prev << "sec" << std::endl;
+		t_prev = t_new;
 	}
 
 	return 0;
