@@ -12,6 +12,9 @@ ExternalProject_Add(
 	INSTALL_COMMAND echo "Skipping install"
 )
 
+SET(CMAKE_CXX_FLAGS  "-O0")
+
+
 # search for Boost version 1.34
 # link against dynamic libraries
 add_definitions(-DBOOST_ALL_DYN_LINK)
@@ -89,3 +92,9 @@ ADD_TEST ( NAME test1 COMMAND test1 )
 ADD_TEST ( NAME test2 COMMAND test2 )
 ADD_TEST ( NAME test3 COMMAND test3 )
 ADD_TEST ( NAME test4 COMMAND test4 )
+
+#include(FindLATEX)
+#find_package(LATEX)
+#add_custom_command(OUTPUT mydoc.pdf COMMAND ${PDFLATEX_COMPILER} ARGS mydoc.tex)
+#add_custom_target(doc DEPENDS mydoc.pdf)
+
