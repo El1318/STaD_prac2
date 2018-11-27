@@ -1,1 +1,0 @@
-# STaD_prac2
