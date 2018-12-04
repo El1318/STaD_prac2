@@ -51,6 +51,8 @@ def summ():
         v2 = tp4.Vector_create(v2[0],v2[1],v2[2])
         v = tp4.Vector_add(v1,v2)
         summ_str.set("Summ: " + str(tp4.Vector_str(v)))
+        tp4.Vector_destroy(v1)
+        tp4.Vector_destroy(v2)
         tp4.Vector_destroy(v)
     except:
         summ_str.set("Summ: " + "Wrong input!")
